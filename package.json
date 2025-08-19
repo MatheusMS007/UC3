@@ -15,5 +15,14 @@
     "npm": "^11.5.2",
     "prompt-sync": "^4.2.0",
     "start": "^5.1.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MatheusMS007/UC3.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MatheusMS007/UC3/issues"
+  },
+  "homepage": "https://github.com/MatheusMS007/UC3#readme"
 }
