@@ -74,6 +74,8 @@ export class Processador{
         this.#velocidade = novaVelocidade
     }get velocidade(){
         return this.#velocidade
+    } 
+    executarPrograma(){
+        console.log(`O processador ${this.#marca} ${this.#modelo}, com ${this.#nucleo} núcleos e velocidade de ${this.#velocidade}GHz está executando um programa.`)
     }
-    
 }
