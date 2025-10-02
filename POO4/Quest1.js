@@ -37,18 +37,14 @@ export class Funcionario extends Pessoa{
     cargo
     #salario
     #matricula
+    desconto
+    horaExtra
     constructor(nome, cpf, dataNascimento, cargo, salario, matricula){
         super(nome, cpf, dataNascimento)
         this.cargo = cargo
         this.#salario = salario
         this.#matricula = matricula
-    }
-    set cargo(cargo){
-        this.cargo = cargo
-    }get cargo(){
-        return this.cargo
-    }
-    set salario(salario){
+    }set salario(salario){
         this.#salario = salario
     }get salario(){
         return this.#salario
@@ -60,28 +56,32 @@ export class Funcionario extends Pessoa{
     }
 
     calculo_horaExtra(){
-        let horaFeitas = Number(prompt("Quantas horas extras foram feitas? "))
-        let valorHora = 15 * horaFeitas
-        console.log(`O valor a ser pago em hooras extras é de: R$ ${valorHora}`)
+        let valorHora = 15 * this.horaExtra
+       //console.log(`O valor a ser pago em hooras extras é de: R$ ${valorHora}`)
+        return valorHora
     }
 
     calcularSalario(){
-        let salarioFinal = this.salario + valorHora
-        console.log(`O salário final é de: R$ ${salarioFinal}`)
-            let inss = prompt("O funcionário tem horas extras(SIM/NÃO)? ").toUpperCase()
-            if(inss === "SIM"){
-                let desconto = salarioFinal - (salarioFinal * 0.9)
-                let salarioComDesconto = salarioFinal - desconto
-                console.log(`O salário com desconto do INSS: R$ ${salarioComDesconto}`)
+        let horaExtra = this.calculo_horaExtra()
+        let salarioFinal
+            if(horaExtra > 0){
+                this.desconto = (this.#salario * 0.09)
+                salarioFinal = this.#salario + horaExtra - this.desconto
+                console.log(`O salário com desconto do INSS: R$ ${salarioFinal}`)
             }else{
-                let desconto = salarioFinal - (salarioFinal * 0.7)
-                let salarioComDesconto = salarioFinal - desconto
-                console.log(`O salário com desconto do INSS: R$ ${salarioComDesconto}`)
+                this.desconto = (this.#salario * 0.075)
+                salarioFinal = this.#salario + horaExtra - this.desconto
+                console.log(`O salário com desconto do INSS: R$ ${salarioFinal}`)
             }
         }
     
     gerarContracheque(){
-        super.calcularSalario()
+        let horaExtra = this.calculo_horaExtra()
+        let salarioFinal = this.#salario + horaExtra - this.desconto
+        console.log(`Salário base: ${this.#salario} 
+            \nQuantidade de horas extra: ${this.horaExtra} e o valor: ${horaExtra} 
+            \nDesconto: ${this.desconto}
+            \nSalário final: ${salarioFinal}`)
     }
     
     }
@@ -92,7 +92,7 @@ export class Funcionario extends Pessoa{
 export class Gerente extends Funcionario{
     setor
     quantidadeEquipe
-    constructor(nome, cpf, dataNascimento, cargo, salario, matricula, setor, quantidadeEquipe) {
+    constructor(nome, cpf, dataNascimento, cargo, salario, matricula, setor, quantidadeEquipe){
         super(nome, cpf, dataNascimento, cargo, salario, matricula)
         this.setor = setor
         this.quantidadeEquipe = quantidadeEquipe
@@ -108,4 +108,3 @@ export class Gerente extends Funcionario{
         }
         }
 }
-
