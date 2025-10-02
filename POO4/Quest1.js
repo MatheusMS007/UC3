@@ -2,7 +2,7 @@ import PromptSync from "prompt-sync"
 const prompt = PromptSync()
 
 // Classe  Pessoa
-class Pessoa {
+export class Pessoa {
     #nome
     #cpf
     #dataNascimento
@@ -28,46 +28,68 @@ class Pessoa {
     }
 
     mostrarInformacoes() {
-        return `Nome: ${this.#nome}\nCPF: ${this.#cpf}\nData de Nascimento: ${this.#dataNascimento}`;
+        console.log(`Nome: ${this.#nome}\nCPF: ${this.#cpf}\nData de Nascimento: ${this.#dataNascimento}`)
     }
 }
 
 // Classe Funcionario 
-class Funcionario extends Pessoa {
+export class Funcionario extends Pessoa{
     cargo
     #salario
     #matricula
-    constructor(nome, cpf, dataNascimento, cargo, salario, matricula) {
+    constructor(nome, cpf, dataNascimento, cargo, salario, matricula){
         super(nome, cpf, dataNascimento)
         this.cargo = cargo
         this.#salario = salario
         this.#matricula = matricula
     }
-    set cargo(cargo) {
+    set cargo(cargo){
         this.cargo = cargo
-    }get cargo() {
+    }get cargo(){
         return this.cargo
     }
-    set salario(salario) {
+    set salario(salario){
         this.#salario = salario
-    }get salario() {
+    }get salario(){
         return this.#salario
     }
-    set matricula(matricula) {
+    set matricula(matricula){
         this.#matricula = matricula
-    }get matricula() {
+    }get matricula(){
         return this.#matricula
     }
 
-    calculo_horaExtra(horas) {
+    calculo_horaExtra(){
         let horaFeitas = Number(prompt("Quantas horas extras foram feitas? "))
         let valorHora = 15 * horaFeitas
-        return (`O valor a ser paga em hooras extras é de: R$ ${valorHora}`)
+        console.log(`O valor a ser pago em hooras extras é de: R$ ${valorHora}`)
     }
-}
+
+    calcularSalario(){
+        let salarioFinal = this.salario + valorHora
+        console.log(`O salário final é de: R$ ${salarioFinal}`)
+            let inss = prompt("O funcionário tem horas extras(SIM/NÃO)? ").toUpperCase()
+            if(inss === "SIM"){
+                let desconto = salarioFinal - (salarioFinal * 0.9)
+                let salarioComDesconto = salarioFinal - desconto
+                console.log(`O salário com desconto do INSS: R$ ${salarioComDesconto}`)
+            }else{
+                let desconto = salarioFinal - (salarioFinal * 0.7)
+                let salarioComDesconto = salarioFinal - desconto
+                console.log(`O salário com desconto do INSS: R$ ${salarioComDesconto}`)
+            }
+        }
+    
+    gerarContracheque(){
+        super.calcularSalario()
+    }
+    
+    }
+        
+
 
 // Classe Gerente
-class Gerente extends Funcionario {
+export class Gerente extends Funcionario{
     setor
     quantidadeEquipe
     constructor(nome, cpf, dataNascimento, cargo, salario, matricula, setor, quantidadeEquipe) {
@@ -76,13 +98,14 @@ class Gerente extends Funcionario {
         this.quantidadeEquipe = quantidadeEquipe
     }
 
-    calculoBonus() {
-        if (this.quantidadeEquipe >= 10) {
-            let bonus = this.#salario * 0.15
-            return (`O bônus do gerente é de: R$ ${bonus}`)
+    calculoBonus(){
+        if (this.quantidadeEquipe >= 10){
+            let bonus = this.salario * 0.15
+            console.log(`O bônus do gerente é de: R$ ${bonus}`)
         }else{
-            let bonus = this.#salario * 0.07
-            return (`O bônus do gerente é de: R$ ${bonus}`)
+            let bonus = this.salario * 0.07
+            console.log(`O bônus do gerente é de: R$ ${bonus}`)
         }
         }
 }
+

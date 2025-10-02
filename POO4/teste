@@ -1,0 +1,9 @@
+import PromptSync from "prompt-sync"
+const prompt = PromptSync()
+import {Funcionario} from "./Quest1.js"
+
+const novoFun = new Funcionario()
+novoFun.nome = prompt("Nome: ")
+novoFun.cpf = prompt("CPF: ")
+novoFun.dataNascimento = prompt("Data de Nascimento: ")
+novoFun.calculo_horaExtra()
